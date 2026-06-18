@@ -1,5 +1,5 @@
 """Punto de entrada principal para KidsLab.
-
+import l
 Este módulo inicializa el motor de Pygame y gestiona el bucle principal
 de la aplicación de forma asíncrona para permitir la compilación a
 WebAssembly (WASM) mediante pygbag.
@@ -7,6 +7,7 @@ WebAssembly (WASM) mediante pygbag.
 
 import asyncio
 import sys
+import logging
 from typing import Final
 
 import pygame
@@ -48,8 +49,14 @@ async def main() -> None:
     El uso de 'await asyncio.sleep(0)' cede el control al bucle de eventos
     del navegador web, previniendo que la pestaña se congele en la ejecución WASM.
     """
-    pygame.init()
-    pygame.mixer.init()
+  pygame.init()
+    
+    # Patrón de Degradación Elegante para entornos sin hardware de audio (ej. Codespaces)
+    try:
+        pygame.mixer.init()
+    except pygame.error as e:
+        import logging
+        logging.warning(f"Audio no disponible ({e}). Ejecutando en modo silencioso.")
 
     pantalla: pygame.Surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("🧪 KidsLab · Oracle Kids")
