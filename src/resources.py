@@ -1,8 +1,8 @@
-# src/resources.py
+# resources.py
 import pygame
 import math
 import random
-from .config import C64, W, H
+from config import C64, W, H
 
 class SFX:
     def __init__(self):

@@ -1,7 +1,7 @@
-# src/ui_utils.py
+# ui_utils.py
 import pygame
 import math
-from .config import C64, W, H, BORDER_COL, GRID_COLOR
+from config import C64, W, H, BORDER_COL, GRID_COLOR
 
 def px(surf, text, x, y, font, color=None, center=False, right=False):
     color = color or C64["white"]
